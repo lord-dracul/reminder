@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Friendly Reminder 😌</title>
+  <meta name="theme-color" content="#0b0b12" />
+  <style>
+    :root{
+      --bg1:#05050a;
+      --bg2:#0b0b12;
+      --card:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.14);
+      --text:#f5f6ff;
+      --muted:rgba(245,246,255,.68);
+      --pink:#ff3b8d;
+      --red:#ff2a2a;
+      --shadow:0 22px 80px rgba(0,0,0,.6);
+      --radius:22px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;}
+    body{
+      min-height:100vh;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(255,59,141,.18), transparent 60%),
+        radial-gradient(700px 460px at 85% 35%, rgba(255,42,42,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+      overflow:hidden;
+    }
+
+    /* floating hearts */
+    .heart{
+      position:absolute;
+      width:14px;height:14px;
+      background:linear-gradient(135deg, var(--pink), var(--red));
+      transform:rotate(45deg);
+      opacity:.35;
+      filter: blur(.2px);
+      animation: floatUp linear infinite;
+      border-radius:3px;
+    }
+    .heart:before,.heart:after{
+      content:"";
+      position:absolute;
+      width:14px;height:14px;
+      background:inherit;
+      border-radius:50%;
+    }
+    .heart:before{left:-7px;top:0}
+    .heart:after{top:-7px;left:0}
+    @keyframes floatUp{
+      from{transform:translateY(120vh) rotate(45deg); opacity:0}
+      10%{opacity:.35}
+      to{transform:translateY(-30vh) rotate(45deg); opacity:0}
+    }
+
+    .wrap{
+      width:min(720px, 100%);
+      position:relative;
+      z-index:2;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding:28px;
+      backdrop-filter: blur(10px);
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(0,0,0,.25);
+      color:var(--muted);
+      font-weight:600;
+      letter-spacing:.2px;
+      margin-bottom:14px;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:var(--pink);
+      box-shadow:0 0 18px rgba(255,59,141,.55);
+    }
+    h1{
+      font-size: clamp(28px, 4.5vw, 44px);
+      line-height:1.05;
+      margin-bottom:10px;
+    }
+    .sub{
+      color:var(--muted);
+      line-height:1.55;
+      font-size: 15.5px;
+      margin-bottom:18px;
+    }
+    .big{
+      margin-top:14px;
+      padding:18px 16px;
+      border-radius:18px;
+      border:1px dashed rgba(255,255,255,.22);
+      background:rgba(0,0,0,.22);
+      font-size: clamp(18px, 3.4vw, 26px);
+      line-height:1.35;
+      text-align:center;
+    }
+    .big b{
+      color:#fff;
+      text-shadow: 0 0 22px rgba(255,59,141,.22);
+    }
+
+    .row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+    button{
+      cursor:pointer;
+      border:none;
+      border-radius:16px;
+      padding:13px 16px;
+      font-weight:800;
+      letter-spacing:.2px;
+      transition: transform .12s ease, filter .12s ease;
+      user-select:none;
+    }
+    .primary{
+      background:linear-gradient(135deg, var(--pink), var(--red));
+      color:#fff;
+      box-shadow:0 12px 35px rgba(255,59,141,.25);
+      flex: 1 1 220px;
+    }
+    .ghost{
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      border:1px solid var(--stroke);
+      flex: 1 1 220px;
+    }
+    button:active{transform: scale(.98);}
+    footer{
+      margin-top:14px;
+      color:rgba(245,246,255,.55);
+      font-size:12.5px;
+      text-align:center;
+    }
+    .sig{
+      margin-top:10px;
+      text-align:center;
+      color:rgba(245,246,255,.6);
+      font-size:13px;
+    }
+    .sig span{
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+      padding:7px 10px;
+      border-radius:999px;
+      display:inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- hearts injected by JS -->
+
+  <div class="wrap">
+    <div class="card">
+      <div class="badge"><span class="dot"></span> Friendly Reminder System™</div>
+      <h1>Excuse me madam… 😌</h1>
+      <p class="sub">
+        This is a <b>public service announcement</b> from the Department of Cute Warnings.
+        Please read carefully and behave accordingly.
+      </p>
+
+      <div class="big" id="msg">
+        🔔 Reminder: <b>You already have a boyfriend.</b><br>
+        (Yes. Me. Hi. 🙂)
+      </div>
+
+      <div class="row">
+        <button class="primary" id="nextBtn">Tap for more reminders 😈</button>
+        <button class="ghost" id="copyBtn">Copy message 📋</button>
+      </div>
+
+      <div class="sig">
+        <span>— your “official” boyfriend, reporting for duty 🫡❤️</span>
+      </div>
+
+      <footer>
+        Tip: Replace the text with your names if you want. Works on mobile too.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // floating hearts background
+    const heartsCount = 18;
+    for(let i=0;i<heartsCount;i++){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const size = 10 + Math.random()*14;
+      h.style.width = size+'px';
+      h.style.height = size+'px';
+      h.style.left = (Math.random()*100)+'vw';
+      h.style.animationDuration = (6 + Math.random()*8)+'s';
+      h.style.animationDelay = (-Math.random()*10)+'s';
+      h.style.opacity = (0.15 + Math.random()*0.35);
+      document.body.appendChild(h);
+    }
+
+    const messages = [
+      "🔔 Reminder: You already have a boyfriend. (Me.)",
+      "⚠️ Warning: Flirting detected. Please return to your boyfriend immediately.",
+      "📌 Note: Your boyfriend is missing you. Kindly send one (1) selfie.",
+      "🚫 System Alert: Other boys are not covered under your warranty.",
+      "💌 Notification: Your boyfriend deserves a hug. Deliver ASAP.",
+      "🧾 Invoice: 1 smile, 2 kisses, and a ‘I miss you’ — payable today.",
+      "🧠 Memory check: Boyfriend = Me. Me = Boyfriend. Problem solved.",
+      "🛑 Stop right there! This heart is already booked. ❤️",
+      "📣 Announcement: If you’re reading this, you’re officially taken 😌"
+    ];
+
+    const msgEl = document.getElementById('msg');
+    const nextBtn = document.getElementById('nextBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    let i = 0;
+    nextBtn.addEventListener('click', () => {
+      i = (i + 1) % messages.length;
+      msgEl.innerHTML = messages[i].replace("boyfriend", "<b>boyfriend</b>");
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      const text = msgEl.textContent.trim();
+      try{
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = "Copied ✅";
+        setTimeout(()=> copyBtn.textContent = "Copy message 📋", 1200);
+      }catch(e){
+        alert("Copy failed. Just select and copy manually 😅");
+      }
+    });
+  </script>
+</body>
+</html>
